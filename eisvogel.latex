@@ -1090,7 +1090,7 @@ $if(lol)$
   {
     \hypersetup{linkcolor=black}
     \renewcommand{\lstlistoflistings}{\begingroup
-    \tocfile{\lstlistingname}{lol}
+    \tocfile{\lstlistlistingname}{lol}
     \endgroup}
     % \addcontentsline{toc}{chapter}{\lstlistlistingname}
     \lstlistoflistings
