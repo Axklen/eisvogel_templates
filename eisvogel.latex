@@ -928,6 +928,7 @@ $endif$
 $if(beamer)$
 $else$
 $if(titlepage)$
+\setcounter{page}{0}
 \begin{titlepage}
 	$if(titlepage-background)$
 	\newgeometry{top=2cm, right=4cm, bottom=3cm, left=4cm}
@@ -1070,7 +1071,6 @@ $if(lot)$
   \hypersetup{linkcolor=black}
   \listoftables
   }
-  \newpage
 $endif$
 
 $if(lof)$
@@ -1078,7 +1078,6 @@ $if(lof)$
   \hypersetup{linkcolor=black}
   \listoffigures
   }
-  \newpage
 $endif$
 
 $if(lol)$
@@ -1095,13 +1094,12 @@ $if(lol)$
     % \addcontentsline{toc}{chapter}{\lstlistlistingname}
     \lstlistoflistings
   }
-  \newpage
-  \pagestyle{eisvogel-header-footer}
 $endif$
 
 $if(glossary)$
   \printnoidxglossary[sort=word]
   \newpage
+  \pagestyle{eisvogel-header-footer}
   \clearpage
   \pagenumbering{arabic}
 $endif$
