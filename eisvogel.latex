@@ -507,14 +507,14 @@ $endif$
 $if(keywords)$
   pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
 $endif$
-$if(colorlinks)$
-  colorlinks=true,
-  linkcolor={$if(linkcolor)$$linkcolor$$else$default-linkcolor$endif$},
-  filecolor={$if(filecolor)$$filecolor$$else$default-filecolor$endif$},
-  citecolor={$if(citecolor)$$citecolor$$else$default-citecolor$endif$},
-  urlcolor={$if(urlcolor)$$urlcolor$$else$default-urlcolor$endif$},
-$else$
-  hidelinks,
+% $if(colorlinks)$
+%   colorlinks=true,
+%   linkcolor={$if(linkcolor)$$linkcolor$$else$default-linkcolor$endif$},
+%   filecolor={$if(filecolor)$$filecolor$$else$default-filecolor$endif$},
+%   citecolor={$if(citecolor)$$citecolor$$else$default-citecolor$endif$},
+%   urlcolor={$if(urlcolor)$$urlcolor$$else$default-urlcolor$endif$},
+% $else$
+%   hidelinks,
 $endif$
   breaklinks=true,
   pdfcreator={LaTeX via pandoc with the Eisvogel template}}
@@ -587,6 +587,7 @@ $endif$
 % captions
 %
 \definecolor{caption-color}{HTML}{777777}
+% \definecolor{caption-color}{HTML}{274684}
 $if(beamer)$
 $else$
 \usepackage[font={stretch=1.2}, textfont={color=caption-color}, position=top, skip=4mm, labelfont=bf, singlelinecheck=false, justification=$if(caption-justification)$$caption-justification$$else$raggedright$endif$]{caption}
@@ -646,7 +647,7 @@ $endif$
 %
 % heading color
 %
-\definecolor{heading-color}{RGB}{40,40,40}
+\definecolor{heading-color}{RGB}{39,70,132}
 $if(beamer)$
 $else$
 \addtokomafont{section}{\color{heading-color}}
@@ -993,11 +994,14 @@ $endif$
 
 $for(include-before)$
 $include-before$
-
 $endfor$
 $if(toc)$
+\pagenumbering{gobble}
+\pagestyle{empty}
+\addtocontents{toc}{~\hfill\textbf{Seite}\par}
 $if(toc-title)$
 \renewcommand*\contentsname{$toc-title$}
+\thispagestyle{empty}
 $endif$
 $if(beamer)$
 \begin{frame}[allowframebreaks]
@@ -1011,22 +1015,41 @@ $if(toc-own-page)$
 $endif$
 $else$
 {
-		$if(colorlinks)$
-		\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$}
-		$endif$
-		\setcounter{tocdepth}{$toc-depth$}
-		\tableofcontents
-		$if(toc-own-page)$
-		\newpage
-		$endif$
-	}
+  $if(colorlinks)$
+  \hypersetup{linkcolor=black}
+  $endif$
+  \hypersetup{linkcolor=black}
+  \setcounter{page}{0}
+  \setcounter{tocdepth}{$toc-depth$}
+  \tableofcontents
+  $if(toc-own-page)$
+  \hypersetup{linkcolor=black}
+  \newpage
+  $endif$
+}
 $endif$
+$endif$
+\pagestyle{eisvogel-header-footer}
+\pagenumbering{Roman}
+$if(lot)$
+{
+\hypersetup{linkcolor=black}
+\listoftables
+}
+\newpage
 $endif$
 $if(lof)$
+{
+\hypersetup{linkcolor=black}
 \listoffigures
+}
+\newpage
 $endif$
-$if(lot)$
-\listoftables
+$if(glossary)$
+\printnoidxglossary[sort=word]
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
 $endif$
 $if(linestretch)$
 \setstretch{$linestretch$}
